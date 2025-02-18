@@ -18,18 +18,59 @@ async function getCompetitions(): Promise<Competition[]> {
     {
       id: 'demo1',
       title: 'Innovative Design Challenge',
-      coverImage: '/assets/images/banner.jpg',
+      coverImage: 'https://picsum.photos/seed/picsum/200',
       prizeAmount: 1000,
       submissionDeadline: new Date(Date.now() + 86400000).toISOString(), // 24 hours later
     },
     {
       id: 'demo2',
       title: 'Tech Innovation Contest',
-      coverImage: '/assets/images/banner.jpg',
+      coverImage: 'https://picsum.photos/seed/picsum/200',
       prizeAmount: 2000,
       submissionDeadline: new Date(Date.now() + 172800000).toISOString(), // 48 hours later
     },
-    // Add more competitions as needed.
+    {
+      id: 'demo3',
+      title: 'Creative Writing Contest',
+      coverImage: 'https://picsum.photos/seed/picsum/200',
+      prizeAmount: 500,
+      submissionDeadline: new Date(Date.now() + 259200000).toISOString(), // 72 hours later
+    },
+    {
+      id: 'demo4',
+      title: 'Photography Contest',
+      coverImage: 'https://picsum.photos/seed/picsum/200',
+      prizeAmount: 1500,
+      submissionDeadline: new Date(Date.now() + 345600000).toISOString(), // 96 hours later
+    },
+    {
+      id: 'demo5',
+      title: 'Startup Pitch Competition',
+      coverImage: 'https://picsum.photos/seed/picsum/200',
+      prizeAmount: 2500,
+      submissionDeadline: new Date(Date.now() + 432000000).toISOString(), // 120 hours later
+    },
+    {
+      id: 'demo6',
+      title: 'App Development Challenge',
+      coverImage: 'https://picsum.photos/seed/picsum/200',
+      prizeAmount: 3000,
+      submissionDeadline: new Date(Date.now() + 518400000).toISOString(), // 144 hours later
+    },
+    {
+      id: 'demo7',
+      title: 'Logo Design Contest',
+      coverImage: 'https://picsum.photos/seed/picsum/200',
+      prizeAmount: 800,
+      submissionDeadline: new Date(Date.now() + 604800000).toISOString(), // 168 hours later
+    },
+    {
+      id: 'demo8',
+      title: 'Social Media Campaign Contest',
+      coverImage: 'https://picsum.photos/seed/picsum/200',
+      prizeAmount: 1200,
+      submissionDeadline: new Date(Date.now() + 691200000).toISOString(), // 192 hours later
+    },
   ];
 }
 
@@ -38,8 +79,8 @@ export default async function CompetitionsPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Competitions</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <h1 className="text-3xl font-bold mb-8 text-center">Competitions</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {competitions.map((comp) => (
           <Link
             key={comp.id}

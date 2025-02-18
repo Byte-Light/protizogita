@@ -10,7 +10,7 @@ export default function Home() {
       <section className="w-full bg-gray-100 py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold text-gray-800">
-            Welcome to CompetitionApp
+            Welcome to Protizogita
           </h1>
           <p className="mt-4 text-xl text-gray-600">
             Crowdsourced competitions where innovative minds create, compete, and win cash prizes!
@@ -35,7 +35,7 @@ export default function Home() {
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow p-6 text-center">
               <Image
-                src="/assets/images/feature1.png"
+                src="https://picsum.photos/seed/picsum/200"
                 alt="Create Competitions"
                 width={64}
                 height={64}
@@ -50,7 +50,7 @@ export default function Home() {
             </div>
             <div className="bg-white rounded-lg shadow p-6 text-center">
               <Image
-                src="/assets/images/feature2.png"
+                src="https://picsum.photos/seed/picsum/200"
                 alt="Real-Time Leaderboards"
                 width={64}
                 height={64}
@@ -65,7 +65,7 @@ export default function Home() {
             </div>
             <div className="bg-white rounded-lg shadow p-6 text-center">
               <Image
-                src="/assets/images/feature3.png"
+                src="https://picsum.photos/seed/picsum/200"
                 alt="Secure Payments"
                 width={64}
                 height={64}
