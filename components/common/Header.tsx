@@ -1,5 +1,5 @@
 // src/components/Header.tsx
-"use client"
+"use client";
 import Link from 'next/link';
 import React, { useState } from 'react';
 
@@ -25,7 +25,7 @@ const Header: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-6">
-          <Link href="/post-contest">
+            <Link href="/post-contest">
               <span className="text-lg font-medium text-white hover:text-gray-200 transition-colors duration-200 cursor-pointer">
                 Post Contest
               </span>
@@ -87,16 +87,26 @@ const Header: React.FC = () => {
 
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
-        <div id="mobile-menu" className="md:hidden bg-indigo-600">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+        <div id="mobile-menu" className="md:hidden bg-gradient-to-r from-indigo-600 to-blue-500">
+          <div className="px-4 pt-4 pb-3 space-y-1">
+            <Link href="/post-contest">
+              <span className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-indigo-500 transition-colors duration-200 cursor-pointer">
+                Post Contest
+              </span>
+            </Link>
             <Link href="/competitions">
               <span className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-indigo-500 transition-colors duration-200 cursor-pointer">
                 Competitions
               </span>
             </Link>
-            <Link href="/dashboard">
+            <Link href="/dashboard/poster">
               <span className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-indigo-500 transition-colors duration-200 cursor-pointer">
-                Dashboard
+                Poster Dashboard
+              </span>
+            </Link>
+            <Link href="/dashboard/competitor">
+              <span className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-indigo-500 transition-colors duration-200 cursor-pointer">
+                Competitor Dashboard
               </span>
             </Link>
             <Link href="/profile">
