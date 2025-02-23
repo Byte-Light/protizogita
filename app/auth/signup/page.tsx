@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
   const router = useRouter();
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-  const [message, setMessage] = useState('');
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,22 +19,14 @@ const SignupForm = () => {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        setMessage(data.message);
-        setTimeout(() => router.push('/sign-in'), 2000);
-      } else {
-        setMessage(data.message);
-      }
+      // Simulate API response with a fake token
+      const fakeToken = "mocked-jwt-token";
+      localStorage.setItem("token", fakeToken);
+      setMessage("Signup successful! Redirecting...");
+      setTimeout(() => router.push("/auth/login"), 2000);
     } catch (error) {
-      console.error('Signup failed:', error);
-      setMessage('Signup failed. Please try again.');
+      console.error("Signup failed:", error);
+      setMessage("Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -55,7 +47,6 @@ const SignupForm = () => {
             value={formData.name}
             onChange={handleChange}
             className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-indigo-500"
-            placeholder="Enter your name"
             required
           />
         </div>
@@ -71,7 +62,6 @@ const SignupForm = () => {
             value={formData.email}
             onChange={handleChange}
             className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-indigo-500"
-            placeholder="Enter your email"
             required
           />
         </div>
@@ -87,7 +77,6 @@ const SignupForm = () => {
             value={formData.password}
             onChange={handleChange}
             className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-indigo-500"
-            placeholder="Enter your password"
             required
           />
         </div>
@@ -95,28 +84,20 @@ const SignupForm = () => {
         <button
           type="submit"
           className={`w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 ${
-            loading ? 'opacity-50 cursor-not-allowed' : ''
+            loading ? "opacity-50 cursor-not-allowed" : ""
           }`}
           disabled={loading}
         >
-          {loading ? 'Signing up...' : 'Signup'}
+          {loading ? "Signing up..." : "Signup"}
         </button>
       </form>
 
-      {message && (
-        <p
-          className={`mt-4 text-center ${
-            message.includes('successful') ? 'text-green-600' : 'text-red-600'
-          }`}
-        >
-          {message}
-        </p>
-      )}
+      {message && <p className="mt-4 text-center text-green-600">{message}</p>}
 
       <p className="mt-4 text-center text-sm text-gray-600">
-        Already have an account?{' '}
+        Already have an account?{" "}
         <button
-          onClick={() => router.push('/auth/login')}
+          onClick={() => router.push("/auth/login")}
           className="text-indigo-500 hover:underline focus:outline-none"
         >
           Sign In

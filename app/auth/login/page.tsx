@@ -1,12 +1,13 @@
 "use client";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/AuthContext"; // Adjust path if needed
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-
-const SignInForm = () => {
+const LoginForm: React.FC = () => {
+  const { login } = useAuth();
   const router = useRouter();
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [message, setMessage] = useState('');
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,22 +20,14 @@ const SignInForm = () => {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/signin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        setMessage(data.message);
-        setTimeout(() => router.push('/post-contest'), 2000);
-      } else {
-        setMessage(data.message);
-      }
+      // Simulate API call and successful login.
+      // In a real app, add your login API logic here.
+      login(); // Update context immediately
+      setMessage("Login successful! Redirecting...");
+      setTimeout(() => router.push("/"), 2000);
     } catch (error) {
-      console.error('Sign-in failed:', error);
-      setMessage('Sign-in failed. Please try again.');
+      console.error("Login failed:", error);
+      setMessage("Invalid credentials. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -42,7 +35,7 @@ const SignInForm = () => {
 
   return (
     <div className="max-w-md mx-auto mt-12 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold mb-4 text-center">Sign In</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-center">Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -55,7 +48,6 @@ const SignInForm = () => {
             value={formData.email}
             onChange={handleChange}
             className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-indigo-500"
-            placeholder="Enter your email"
             required
           />
         </div>
@@ -71,7 +63,6 @@ const SignInForm = () => {
             value={formData.password}
             onChange={handleChange}
             className="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-indigo-500"
-            placeholder="Enter your password"
             required
           />
         </div>
@@ -79,35 +70,27 @@ const SignInForm = () => {
         <button
           type="submit"
           className={`w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 ${
-            loading ? 'opacity-50 cursor-not-allowed' : ''
+            loading ? "opacity-50 cursor-not-allowed" : ""
           }`}
           disabled={loading}
         >
-          {loading ? 'Signing in...' : 'Sign In'}
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
 
-      {message && (
-        <p
-          className={`mt-4 text-center ${
-            message.includes('successful') ? 'text-green-600' : 'text-red-600'
-          }`}
-        >
-          {message}
-        </p>
-      )}
+      {message && <p className="mt-4 text-center text-green-600">{message}</p>}
 
       <p className="mt-4 text-center text-sm text-gray-600">
-        Don't have an account?{' '}
+        Don't have an account?{" "}
         <button
-          onClick={() => router.push('/auth/signup')}
+          onClick={() => router.push("/auth/signup")}
           className="text-indigo-500 hover:underline focus:outline-none"
         >
-          Signup
+          Sign Up
         </button>
       </p>
     </div>
   );
 };
 
-export default SignInForm;
+export default LoginForm;
