@@ -1,8 +1,9 @@
+// Header.tsx
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/AuthContext"; // Adjust the path if needed
+import { useAuth } from "@/components/AuthContext";
 
 const Header: React.FC = () => {
   const { isLoggedIn, logout } = useAuth();
@@ -65,7 +66,10 @@ const Header: React.FC = () => {
           {/* Desktop Login/Logout Button */}
           <div className="hidden md:flex items-center">
             {isLoggedIn ? (
-              <button onClick={handleLogout} className="text-white hover:text-gray-200 transition-colors duration-200">
+              <button
+                onClick={handleLogout}
+                className="text-white hover:text-gray-200 transition-colors duration-200"
+              >
                 Logout
               </button>
             ) : (
@@ -107,28 +111,43 @@ const Header: React.FC = () => {
           <nav className="space-y-2">
             {isLoggedIn && (
               <Link href="/post-contest">
-                <span className="block px-4 py-2 hover:bg-indigo-600 rounded">Post Contest</span>
+                <span className="block px-4 py-2 hover:bg-indigo-600 rounded">
+                  Post Contest
+                </span>
               </Link>
             )}
             <Link href="/competitions">
-              <span className="block px-4 py-2 hover:bg-indigo-600 rounded">Competitions</span>
+              <span className="block px-4 py-2 hover:bg-indigo-600 rounded">
+                Competitions
+              </span>
             </Link>
             <Link href="/dashboard/poster">
-              <span className="block px-4 py-2 hover:bg-indigo-600 rounded">Poster Dashboard</span>
+              <span className="block px-4 py-2 hover:bg-indigo-600 rounded">
+                Poster Dashboard
+              </span>
             </Link>
             <Link href="/dashboard/competitor">
-              <span className="block px-4 py-2 hover:bg-indigo-600 rounded">Competitor Dashboard</span>
+              <span className="block px-4 py-2 hover:bg-indigo-600 rounded">
+                Competitor Dashboard
+              </span>
             </Link>
             <Link href="/profile">
-              <span className="block px-4 py-2 hover:bg-indigo-600 rounded">Profile</span>
+              <span className="block px-4 py-2 hover:bg-indigo-600 rounded">
+                Profile
+              </span>
             </Link>
             {isLoggedIn ? (
-              <button onClick={handleLogout} className="block w-full text-left px-4 py-2 hover:bg-indigo-600 rounded">
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left px-4 py-2 hover:bg-indigo-600 rounded"
+              >
                 Logout
               </button>
             ) : (
               <Link href="/auth/login">
-                <span className="block px-4 py-2 hover:bg-indigo-600 rounded">Login</span>
+                <span className="block px-4 py-2 hover:bg-indigo-600 rounded">
+                  Login
+                </span>
               </Link>
             )}
           </nav>

@@ -1,5 +1,13 @@
+// AuthContext.tsx
 "use client";
-import React, { createContext, useState, useContext, ReactNode, FC } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  ReactNode,
+  FC,
+} from "react";
 
 interface AuthContextProps {
   isLoggedIn: boolean;
@@ -7,20 +15,20 @@ interface AuthContextProps {
   logout: () => void;
 }
 
-// Create the context
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  // Initialize state from localStorage (if available)
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      return !!localStorage.getItem("token");
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  // On mount, check for a stored token
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
     }
-    return false;
-  });
+  }, []);
 
   const login = () => {
-    localStorage.setItem("token", "your-token");
     setIsLoggedIn(true);
   };
 
@@ -36,7 +44,6 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-// Custom hook for accessing authentication context
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

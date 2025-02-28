@@ -1,6 +1,7 @@
 // firebaseConfig.ts
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAYUgndo3lL9KZ07TJcCM29oIeCRsguE-4",
@@ -8,10 +9,13 @@ const firebaseConfig = {
   projectId: "protizogita",
   storageBucket: "protizogita.firebasestorage.app",
   messagingSenderId: "756259054692",
-  appId: "1:756259054692:web:a0c1b6903c1757b67a2b71"
+  appId: "1:756259054692:web:a0c1b6903c1757b67a2b71",
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-export { db };
+export { db, auth };
+
+
