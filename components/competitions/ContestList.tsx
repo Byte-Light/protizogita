@@ -1,11 +1,11 @@
-// src/components/ContestList.tsx
-"use client"
+// src/components/competitions/ContestList.tsx
+"use client";
 import React, { useEffect, useState, useRef } from 'react';
 import { db } from '@/firebaseConfig';
-import { collection, query, orderBy, getDocs, limit, startAfter } from "firebase/firestore";
+import { collection, query, orderBy, getDocs, limit as firebaseLimit, startAfter } from "firebase/firestore";
 import ContestCard from './ContestCard';
 
-interface ContestData {
+export interface ContestData {
   id: string;
   title: string;
   description: string;
@@ -17,9 +17,14 @@ interface ContestData {
   createdAt: any;
 }
 
-const PAGE_SIZE = 6; // Number of contests per page
+interface ContestListProps {
+  limit?: number;
+}
 
-const ContestList: React.FC = () => {
+const DEFAULT_PAGE_SIZE = 6; // Default number of contests per page
+
+const ContestList: React.FC<ContestListProps> = ({ limit }) => {
+  const PAGE_SIZE = limit || DEFAULT_PAGE_SIZE;
   const [contests, setContests] = useState<ContestData[]>([]);
   const [lastVisible, setLastVisible] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,9 +39,18 @@ const ContestList: React.FC = () => {
       const contestsRef = collection(db, "contests");
       let q;
       if (lastVisible) {
-        q = query(contestsRef, orderBy("createdAt", "desc"), startAfter(lastVisible), limit(PAGE_SIZE));
+        q = query(
+          contestsRef,
+          orderBy("createdAt", "desc"),
+          startAfter(lastVisible),
+          firebaseLimit(PAGE_SIZE)
+        );
       } else {
-        q = query(contestsRef, orderBy("createdAt", "desc"), limit(PAGE_SIZE));
+        q = query(
+          contestsRef,
+          orderBy("createdAt", "desc"),
+          firebaseLimit(PAGE_SIZE)
+        );
       }
       const querySnapshot = await getDocs(q);
       const newContests: ContestData[] = [];
@@ -49,7 +63,6 @@ const ContestList: React.FC = () => {
       if (querySnapshot.docs.length > 0) {
         setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]);
       }
-      // Instead of appending, set the contests to the fetched ones if this is the initial load
       if (!lastVisible) {
         setContests(newContests);
       } else {
@@ -69,27 +82,32 @@ const ContestList: React.FC = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-3xl font-bold text-center mb-8">Contests</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-8">
+        Contests
+      </h2>
+      <div className="space-y-6">
         {contests.map(contest => (
           <ContestCard key={contest.id} {...contest} />
         ))}
       </div>
-      <div className="flex justify-center mt-8">
-        {loading ? (
-          <p>Loading...</p>
-        ) : hasMore ? (
-          <button 
-            onClick={fetchContests} 
-            className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-          >
-            Load More
-          </button>
-        ) : (
-          <p>No more contests</p>
-        )}
-      </div>
+      {hasMore && (
+        <div className="flex justify-center mt-8">
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <button
+              onClick={fetchContests}
+              className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+            >
+              Load More
+            </button>
+          )}
+        </div>
+      )}
+      {!hasMore && (
+        <p className="text-center text-gray-500 mt-8">No more contests</p>
+      )}
     </div>
   );
 };
