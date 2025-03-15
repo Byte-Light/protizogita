@@ -1,4 +1,3 @@
-// src/components/competitions/ContestList.tsx
 "use client";
 import React, { useEffect, useState, useRef } from 'react';
 import { db } from '@/firebaseConfig';
